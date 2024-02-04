@@ -1,0 +1,25 @@
+Solution:
+
+1: Goroutines and Channels: 
+The code uses goroutines (go keyword) and channels to implement concurrent programming. 
+Goroutines are lightweight threads of execution, and channels are used for communication and synchronization between goroutines.
+
+2: Use-Cases of Goroutines and Channels:
+Goroutines and channels are often used for concurrent programming, allowing parallel execution of tasks. 
+Use-cases include concurrent processing of data, handling multiple requests simultaneously, and implementing scalable and efficient systems.
+
+3: Significance of the For Loop with 4 Iterations:
+The for loop with 4 iterations (for i := 0; i < 4; i++) launches four goroutines. 
+Each goroutine runs an anonymous function that listens on the channel cnp for functions and executes them in a loop. 
+
+4: Significance of make(chan func(), 10):
+This line creates a buffered channel (chan func()) with a capacity of 10. 
+The channel can hold up to 10 functions without blocking the sender. 
+This buffering can help in certain scenarios where you want to decouple the sending and receiving of data to some extent.
+
+ 5: Why is "HERE1" not getting printed?
+The program may exit before the goroutines have a chance to execute the function. 
+The main goroutine sends a function to the channel (cnp <- func() { fmt.Println("HERE1") }), but there's no guarantee that the launched goroutines have started running and are ready to consume from the channel.
+The main goroutine may print "Hello" before the launched goroutines have a chance to execute the function from the channel.
+
+(To address this issue, we may need to introduce synchronization mechanisms, such as using a sync.WaitGroup or another channel, to ensure that the main goroutine waits for the spawned goroutines to complete their execution before exiting.)
